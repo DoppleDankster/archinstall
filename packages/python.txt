@@ -5,3 +5,8 @@ pandas
 youtube-dl
 poetry
 black
+pytest
+nose
+pipenv
+editorconfig-checker
+

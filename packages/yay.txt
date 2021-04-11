@@ -3,6 +3,7 @@ bitwarden-rofi
 brave-bin
 deadd-notification-center-bin
 direnv-bin
+editorconfig-checker-git
 font-manager
 gotop-bin
 ntfd-bin
@@ -11,7 +12,7 @@ postman-bin
 spotify
 systemd-numlockontty
 ttf-all-the-icons
+ttf-cascadia-code
 ttf-font-icons
 ttf-icomoon-feather
 vscodium-bin
-yay-git
