@@ -3,17 +3,17 @@
 # Locale & Time
 ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime
 hwclock --systohc
-# uncomments en_US.UTF-8 in locale.gen
+
+# Uncomments en_US UTF-8 in locale.gen
 sed -i '177s/.//' /etc/locale.gen
 locale-gen
 echo "LANG=en_US.UTF-8" >> /etc/locale.conf
 echo "KEYMAP=fr" >> /etc/vconsole.conf
 echo "arch" >> /etc/hostname
 printf "127.0.0.1 localhost\n::1 localhost\n127.0.1.1 arch.localdomain arch" >> /etc/hosts
-echo root:password | chpasswd
 
 # Package Install
-pacman -S --needed --noconfirm -q - < /archinstall/pacman.txt 
+pacman -S --needed --noconfirm -q - < /archinstall/packages/pacman.txt 
 
 # Grub
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
@@ -29,6 +29,7 @@ systemctl enable acpid
 
 # User
 useradd -m doppledankster --shell /bin/zsh
+echo root:password | chpasswd
 echo doppledankster:password | chpasswd
 echo "doppledankster ALL=(ALL) ALL" > /etc/sudoers.d/doppledankster
 
@@ -39,11 +40,12 @@ echo "doppledankster ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/doppledankster
 echo "doppledankster ALL=(ALL) ALL" >> /etc/sudoers.d/doppledankster
 sed -i '$d' /etc/sudoers.d/doppledankster
 
-
-# Home Dir
+# Dotfiles
 echo "Deploying dootfiles"
 /bin/su -s /bin/bash -c '/archinstall/home_install.sh' doppledankster
 
-
+# Cleanup
+cd /
+rm -rf /archinstall
 
 printf "\e[1;32mDone! Type exit, umount -a and reboot.\e[0m"

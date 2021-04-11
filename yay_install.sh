@@ -9,4 +9,4 @@ echo "Cleaning Up Yay install folder"
 rm -rf $HOME/yay-git
 echo "Installing Yay packages"
 yay -Syu -q --noconfirm
-yay -S -q --noconfirm - < /archinstall/yay.txt
+yay -S -q --noconfirm - < /archinstall/packages/yay.txt

@@ -22,7 +22,7 @@ git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
 ~/.emacs.d/bin/doom -y sync
 
 # Python packages
-pip install -r /archinstall/python.txt
+pip install -r /archinstall/packages/python.txt
 
 
 
