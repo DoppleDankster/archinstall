@@ -1,41 +1,28 @@
 #!/bin/sh
 
 # Simple & Automated install script for my arch
+printf "\033[1;34m===============================\n"
+printf "      AUTO ARCH INSTALLER\n"
+printf "===============================\033[0m\n"
 
-# Keyboard
-echo "Switching Keyboard layout"
 loadkeys fr
-
 # Mirror list
-echo "Updating Mirror List"
+echo "Updating the mirror list ..."
 reflector -c France --sort rate --save /etc/pacman.d/mirrorlist
-pacman -Syy
-
-# Time
-echo "Time to NTP"
+pacman -Syy > /dev/null
 timedatectl set-ntp true
-
-# Partitioning / Formatting / Mounting
-echo " Setup Partitions"
-lsblk
-
-echo " Format Partitions"
-
-# Mount partitions
-# [WIP
-# Pacstrap Installation
-echo "Pacstrap to /mnt"
 pacstrap /mnt base base-devel linux linux-firmware amd-ucode git vim wget curl
-
-# Fstab
-echo "Generating FSTAB"
 genfstab -U /mnt >> /mnt/etc/fstab
 
+# Cloning
 echo "Cloning the Installation repo on the new system"
-pacman -S --noconfirm git
+pacman -S -q --noconfirm git > /dev/null
 git clone https://github.com/doppledankster/archinstall /mnt/archinstall
 chmod +x /mnt/archinstall/*.sh
 
-printf "\033[1;34m CHROOTING IN \33[0m \n"
+printf "\033[1;34m===============================\n"
+printf " ARCH-ROOTING ON THE NEW SYSTEM\n"
+printf "===============================\033[0m\n"
+
 arch-chroot /mnt /archinstall/post_archroot.sh
 

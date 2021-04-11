@@ -1,5 +1,17 @@
 #!/bin/sh
 
+
+colored_print () {
+    LENGHT="${#1}"
+    printf '\033[1;34m' 
+    printf '%*s' $LENGHT | tr ' ' '='
+    printf "\n${1}\n"
+    printf '%*s' $LENGHT | tr ' ' '='
+    printf '\033[0m\n'
+}
+
+colored_print "CONFIGURING LOCALES"
+
 # Locale & Time
 ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime
 hwclock --systohc
@@ -13,7 +25,7 @@ echo "arch" >> /etc/hostname
 printf "127.0.0.1 localhost\n::1 localhost\n127.0.1.1 arch.localdomain arch" >> /etc/hosts
 
 # Package Install
-pacman -S --needed --noconfirm -q - < /archinstall/packages/pacman.txt 
+pacman -S --needed --noconfirm -q - < /archinstall/packages/pacman.txt > /dev/null 
 
 # Grub
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
@@ -27,25 +39,25 @@ systemctl enable reflector.timer
 systemctl enable fstrim.timer
 systemctl enable acpid
 
-# User
+colored_print "CONFIGURING USERS"
 useradd -m doppledankster --shell /bin/zsh
 echo root:password | chpasswd
 echo doppledankster:password | chpasswd
 echo "doppledankster ALL=(ALL) ALL" > /etc/sudoers.d/doppledankster
 
-# Yay
+colored_print "INSTALLING YAY"
 echo "Temporary disabling sudo passwd to install yay"
 echo "doppledankster ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/doppledankster
 /bin/su -s /bin/bash -c '/archinstall/yay_install.sh' doppledankster
 echo "doppledankster ALL=(ALL) ALL" >> /etc/sudoers.d/doppledankster
 sed -i '$d' /etc/sudoers.d/doppledankster
 
-# Dotfiles
-echo "Deploying dootfiles"
+colored_print "INSTALLING DOTFILES"
 /bin/su -s /bin/bash -c '/archinstall/home_install.sh' doppledankster
 
 # Cleanup
+colored_print "CLEANING UP"
 cd /
 rm -rf /archinstall
 
-printf "\e[1;32mDone! Type exit, umount -a and reboot.\e[0m"
+printf "\033[0;31mDone! Dont forget to CHANGE the root and user password before rebooting\n\e[0m"
