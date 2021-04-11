@@ -11,6 +11,12 @@
 
 ## 4 - Update the root/user password & reboot
 
+## 5 After
+
+- get the openweather API Key for the polybar module 
+- nvidia-settings as root to configure the monitors
+- ssh-keys on each platform
+- configure brave
 
 ## TODO 
 
