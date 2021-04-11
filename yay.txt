@@ -1,0 +1,17 @@
+bitwarden-cli-bin
+bitwarden-rofi
+brave-bin
+deadd-notification-center-bin
+direnv-bin
+font-manager
+gotop-bin
+ntfd-bin
+polybar-git
+postman-bin
+spotify
+systemd-numlockontty
+ttf-all-the-icons
+ttf-font-icons
+ttf-icomoon-feather
+vscodium-bin
+yay-git

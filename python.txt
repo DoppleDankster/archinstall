@@ -1,0 +1,7 @@
+requests
+connexion[swagger-UI]
+aws
+pandas
+youtube-dl
+poetry
+black
