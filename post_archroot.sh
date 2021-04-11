@@ -31,6 +31,17 @@ pacman -S --needed --noconfirm -q - < /archinstall/packages/pacman.txt > /dev/nu
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
 
+
+# installing Ly DM
+colored_print "INSTALLING LY DESKTOP MANAGER"
+cd /opt
+git clone https://github.com/nullgemm/ly
+cd ly
+make github
+make install
+cd /
+rm -rf /opt/ly
+
 # Sys init
 systemctl enable NetworkManager
 systemctl enable cups
@@ -38,6 +49,8 @@ systemctl enable sshd
 systemctl enable reflector.timer
 systemctl enable fstrim.timer
 systemctl enable acpid
+systemctl enable ly.service
+
 
 colored_print "CONFIGURING USERS"
 useradd -m doppledankster --shell /bin/zsh
